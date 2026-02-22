@@ -18,8 +18,11 @@ import os
 import json
 from datetime import datetime
 
-# Database file path (stored in the backend directory)
-DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'skillforge.db')
+# Database file path — uses /tmp on Vercel (serverless), local path otherwise
+if os.environ.get('VERCEL'):
+    DB_PATH = '/tmp/skillforge.db'
+else:
+    DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'skillforge.db')
 
 
 def get_connection():
